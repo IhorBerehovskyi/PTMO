@@ -5,6 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:id="@+id/MainFrame"
+        android:layout_width="411dp"
+        android:layout_height="767dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomButtonsLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+    </FrameLayout>
+
     <LinearLayout
         android:id="@+id/bottomButtonsLayout"
         android:layout_width="0dp"
@@ -14,41 +28,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp">
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="14dp">
 
-        <!-- Тут додаєте ваші кнопки -->
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/marksButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
-            android:text="Button 1" />
+            android:text="Marks" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/todoButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
-            android:text="Button 2" />
+            android:text="To-Do" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/mapButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
-            android:text="Button 3" />
+            android:text="Map" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/adminButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button 4" />
+            android:text="Admin" />
 
     </LinearLayout>
 
