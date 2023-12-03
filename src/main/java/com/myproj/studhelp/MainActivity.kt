@@ -2,10 +2,13 @@ package com.myproj.studhelp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.myproj.studhelp.databinding.ActivityMainBinding
+import com.myproj.studhelp.R
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,47 +27,37 @@ class MainActivity : AppCompatActivity() {
 
         //////////////////////////////////////////////
 
-        bindingClass.marksButton.setOnClickListener{
+        bindingClass.marksButton.setOnClickListener {
             if (currentFragment !is MarksFragment) {
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.framePlaceholder,
-                    MarksFragment.newInstance()
-                ).commit()
-                currentFragment = MarksFragment.newInstance()
+                //Log.e("********", "8888888")
+                replaceFragmentIfNeeded(MarksFragment.newInstance())
             }
         }
 
-        bindingClass.todoButton.setOnClickListener{
+        bindingClass.todoButton.setOnClickListener {
             if (currentFragment !is ToDoFragment) {
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.framePlaceholder,
-                    ToDoFragment.newInstance()
-                ).commit()
-                currentFragment = ToDoFragment.newInstance()
+                replaceFragmentIfNeeded(ToDoFragment.newInstance())
             }
         }
 
-        bindingClass.mapButton.setOnClickListener{
+        bindingClass.mapButton.setOnClickListener {
             if (currentFragment !is MapFragment) {
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.framePlaceholder,
-                    MapFragment.newInstance()
-                ).commit()
-                currentFragment = MapFragment.newInstance()
+                replaceFragmentIfNeeded(MapFragment.newInstance())
             }
         }
 
         bindingClass.adminButton.setOnClickListener {
             if (currentFragment !is AdminFragment) {
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.framePlaceholder,
-                    AdminFragment.newInstance()
-                ).commit()
-                currentFragment = AdminFragment.newInstance()
+                replaceFragmentIfNeeded(AdminFragment.newInstance())
             }
         }
     }
 
+    private fun replaceFragmentIfNeeded(targetFragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(R.id.framePlaceholder,
+            targetFragment).commit()
+            currentFragment = targetFragment
+    }
 
 
 }
