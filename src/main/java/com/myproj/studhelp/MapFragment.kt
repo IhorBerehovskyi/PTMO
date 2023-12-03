@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 class MapFragment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -16,7 +17,10 @@ class MapFragment : Fragment() {
     }
 
     companion object {
+
         @JvmStatic
-        fun newInstance(param1: String, param2: String) = MapFragment()
+        fun newInstance() = MapFragment()
     }
+
+
 }
