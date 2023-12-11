@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -30,6 +31,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
     private lateinit var locationManager: LocationManager
     private lateinit var mMap: GoogleMap
     private var currentPosition: Marker? = null
+    private var isInitialLocationUpdate = false
 
     private var pointsMap: Map<String, LatLng> = mapOf(
         "Main building" to LatLng( 49.83500097293507, 24.01447421201443),
@@ -71,16 +73,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-
-    }
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?)
+        { super.onViewCreated(view, savedInstanceState) }
 
     companion object {
-
         @JvmStatic
         fun newInstance() = MapFragment()
     }
@@ -106,7 +102,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
             }
         }
 
-
         pointsMap.forEach { (buildingName, latLng) ->
             mMap.addMarker(MarkerOptions().position(latLng).title(buildingName))
         }
@@ -118,8 +113,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
             if (pointsMap.containsKey(buildingName)) {
                 val clickedBuildingLatLng = pointsMap[buildingName]
                 if (clickedBuildingLatLng != null && clickedBuildingLatLng != currentPosition!!.position) {
-                    /*val latitude = clickedBuildingLatLng.latitude
-                    val longitude = clickedBuildingLatLng.longitude*/
+
                     try {
                         mMap.drawRouteOnMap(
                             mapsApiKey = "AIzaSyBInBx7LRAWobYAkDQc_ahFSzpO1imQ0_o",
@@ -149,8 +143,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
         val userLatLng = LatLng(latitude, longitude)
         currentPosition?.remove()
         var options = MarkerOptions().position(userLatLng).title("User's Location")
-        //options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
         currentPosition = mMap.addMarker(options)
+
+        if (!isInitialLocationUpdate){
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition!!.position, 15.0F));
+            isInitialLocationUpdate = !isInitialLocationUpdate
+        }
     }
 
 
