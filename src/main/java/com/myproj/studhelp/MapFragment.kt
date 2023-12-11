@@ -1,25 +1,27 @@
 package com.myproj.studhelp
 
+import android.Manifest
+import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.Manifest
-import android.content.Context.LOCATION_SERVICE
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.myproj.studhelp.databinding.FragmentMapBinding
-
+import com.maps.route.extensions.drawRouteOnMap
+import com.maps.route.model.TravelMode
 
 
 class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
@@ -27,6 +29,26 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
     private lateinit var binding : FragmentMapBinding
     private lateinit var locationManager: LocationManager
     private lateinit var mMap: GoogleMap
+    private var currentPosition: Marker? = null
+
+    private var pointsMap: Map<String, LatLng> = mapOf(
+        "Main building" to LatLng( 49.83500097293507, 24.01447421201443),
+        "Building №1" to LatLng(49.83510061296115,  24.0105404673798),
+        "Building №2" to LatLng(49.835872633787446,  24.012640465005553),
+        "Building №3" to LatLng(49.836381218153456, 24.01379567668947),
+        "Building №4" to LatLng(49.83661363414533, 24.011016512071123),
+        "Building №5 " to LatLng(49.83480318686737, 24.0081430641997),
+        "Building №6" to LatLng(49.835023975286425, 24.006566859919904),
+        "Building №7" to LatLng(49.83445120770019, 24.00965766968663),
+        "Building №8" to LatLng(49.8375267323081, 24.012746537629425),
+        "Building №9" to LatLng(49.8361256936255, 24.01444144858137),
+        "Building №10" to LatLng(49.8366281676076, 24.015460394815783),
+        "Building №11" to LatLng(49.835871, 24.016391),
+        "Building №12" to LatLng(49.83612549740473, 24.014526109446653),
+        "Building №13" to LatLng(49.83612549740473, 24.014526109446653),
+        "Building №20" to LatLng(49.83728179406068, 24.033333744283965)
+    )
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,9 +87,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
-        var point =  LatLng(49.834786, 24.008059)
-        mMap.addMarker(MarkerOptions().position(point).title("asdf"))
         mMap.isBuildingsEnabled = true
 
         if (ActivityCompat.checkSelfPermission(
@@ -87,18 +106,51 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
             }
         }
 
+
+        pointsMap.forEach { (buildingName, latLng) ->
+            mMap.addMarker(MarkerOptions().position(latLng).title(buildingName))
+        }
+
+        mMap.setOnMarkerClickListener { marker ->
+
+            val buildingName = marker.title
+
+            if (pointsMap.containsKey(buildingName)) {
+                val clickedBuildingLatLng = pointsMap[buildingName]
+                if (clickedBuildingLatLng != null && clickedBuildingLatLng != currentPosition!!.position) {
+                    /*val latitude = clickedBuildingLatLng.latitude
+                    val longitude = clickedBuildingLatLng.longitude*/
+                    try {
+                        mMap.drawRouteOnMap(
+                            mapsApiKey = "AIzaSyBInBx7LRAWobYAkDQc_ahFSzpO1imQ0_o",
+                            context = requireContext(),
+                            source = currentPosition!!.position,
+                            destination = clickedBuildingLatLng,
+                            markers = false,
+                            polygonWidth = 10,
+                            travelMode = TravelMode.WALKING
+                        )
+                    }
+                    catch (e: Exception){
+                        Toast.makeText(requireContext(), "Impossible to route", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            true
+        }
+
     }
 
     override fun onLocationChanged(location: Location) {
+
         val latitude = location.latitude
         val longitude = location.longitude
 
         val userLatLng = LatLng(latitude, longitude)
-        //currentPosition?.remove()
+        currentPosition?.remove()
         var options = MarkerOptions().position(userLatLng).title("User's Location")
         //options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-        //currentPosition =
-            mMap.addMarker(options)
+        currentPosition = mMap.addMarker(options)
     }
 
 
