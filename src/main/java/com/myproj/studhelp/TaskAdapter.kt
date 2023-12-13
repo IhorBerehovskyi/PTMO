@@ -27,28 +27,18 @@ class TaskAdapter(context: Context, resource: Int, objects: List<Task>) :
 
         finishButton.setOnClickListener {
 
-            if (task!!.status == 0) {
-                val rowsAffected = dbHelper.updateTask(task)
 
-                if (rowsAffected > 0) {
+            val rowsAffected = dbHelper.deleteTask(task!!.id)
 
-                    remove(task)
-                    notifyDataSetChanged()
-                    Toast.makeText(context, "Task transferred", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
-                }
-            }else{
-                val rowsAffected = dbHelper.deleteTask(task.id)
-                if (rowsAffected > 0) {
-                    remove(task)
-                    notifyDataSetChanged()
-                    Toast.makeText(context, "Task deleted", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, "Error while deleting", Toast.LENGTH_SHORT).show()
-                }
+            if (rowsAffected > 0) {
+                remove(task)
+                notifyDataSetChanged()
+                Toast.makeText(context, "Task deleted", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
             }
         }
+
         return rowView
     }
 }

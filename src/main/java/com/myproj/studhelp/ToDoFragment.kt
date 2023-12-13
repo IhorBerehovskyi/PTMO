@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.myproj.studhelp.databinding.FragmentToDoBinding
 
 class ToDoFragment : Fragment() {
@@ -17,13 +18,8 @@ class ToDoFragment : Fragment() {
     private lateinit var dbHelper: DbHelper
     private lateinit var editTextForm: EditText
     private lateinit var currentList: ListView
-    private lateinit var finishedList: ListView
     private lateinit var adapter: TaskAdapter
 
-    //val currentData = mutableListOf<Task>()
-    //val finishedData = mutableListOf<Task>()
-
-    //private var _binding: FragmentToDoBinding? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,7 +31,7 @@ class ToDoFragment : Fragment() {
 
         editTextForm = binding.editTextForm
         currentList = binding.currentTasksList
-        finishedList = binding.finishedTasksList
+        //finishedList = binding.finishedTasksList
         updateData()
         //binding.currentTasksList =
         binding.addTaskButton.setOnClickListener {
@@ -72,7 +68,7 @@ class ToDoFragment : Fragment() {
     }
 
     @SuppressLint("Range")
-    private fun getTasksFromDatabase(stat: Int): List<Task> {
+    private fun getTasksFromDatabase(): List<Task> {
         val currentList = mutableListOf<Task>()
         val cursor = dbHelper.getAllData()
 
@@ -82,9 +78,8 @@ class ToDoFragment : Fragment() {
                 status = cursor.getInt(cursor.getColumnIndex(DbHelper.COLUMN_STATUS)),
                 taskLabel = cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_TASK_LABEL))
             )
-            if(task.status == stat){
-                currentList.add(task)
-            }
+
+            currentList.add(task)
         }
         cursor.close()
         return currentList
@@ -92,9 +87,8 @@ class ToDoFragment : Fragment() {
 
     private fun updateData() {
 
-        adapter = TaskAdapter(requireContext(), R.layout.current_task_item, getTasksFromDatabase(0))
+        adapter = TaskAdapter(requireContext(), R.layout.current_task_item ,getTasksFromDatabase())
         currentList.adapter = adapter
-        adapter = TaskAdapter(requireContext(), R.layout.current_task_item, getTasksFromDatabase(1))
-        finishedList.adapter = adapter
+
     }
 }
