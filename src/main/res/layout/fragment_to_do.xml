@@ -16,7 +16,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/editTextForm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#DCBEF8"
+        android:background="#FFFFFF"
         android:orientation="vertical"
         android:radius="16dp">
 
@@ -47,16 +47,18 @@
             android:id="@+id/currentTaskLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#DCB8F1"
             android:text="Current tasks:"
             android:textAlignment="center"
             android:textColor="#FBFAFA"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <ListView
             android:id="@+id/currentTasksList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="#FFFFFF" />
 
     </LinearLayout>
 
@@ -81,10 +83,11 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/FinishedTasksList"
+        <ListView
+            android:id="@+id/finishedTasksList"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
     </LinearLayout>
 
 </LinearLayout>

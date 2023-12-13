@@ -34,7 +34,7 @@ class DbHelper(context: Context) :
         onCreate(db)
     }
 
-    fun insertSubject(task: Task): Long {
+    fun insertTask(task: Task): Long {
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(COLUMN_STATUS, task.status)
@@ -43,8 +43,23 @@ class DbHelper(context: Context) :
         return db.insert(TABLE_TASKS, null, values)
     }
 
+    fun updateTask(task: Task): Int {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put(COLUMN_STATUS, 1)
+            put(COLUMN_TASK_LABEL, task.taskLabel)
+        }
 
-    fun deleteSubject(id: Long): Int {
+        return db.update(
+            TABLE_TASKS,
+            values,
+            "$COLUMN_ID = ?",
+            arrayOf(task.id.toString())
+        )
+    }
+
+
+    fun deleteTask(id: Long): Int {
         val db = this.writableDatabase
         return db.delete(TABLE_TASKS, "$COLUMN_ID = ?", arrayOf(id.toString()))
     }
