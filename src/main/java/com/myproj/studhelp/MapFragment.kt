@@ -39,7 +39,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
         "Building №2" to LatLng(49.835872633787446,  24.012640465005553),
         "Building №3" to LatLng(49.836381218153456, 24.01379567668947),
         "Building №4" to LatLng(49.83661363414533, 24.011016512071123),
-        "Building №5 " to LatLng(49.83480318686737, 24.0081430641997),
+        "Building №5" to LatLng(49.83480318686737, 24.0081430641997),
         "Building №6" to LatLng(49.835023975286425, 24.006566859919904),
         "Building №7" to LatLng(49.83445120770019, 24.00965766968663),
         "Building №8" to LatLng(49.8375267323081, 24.012746537629425),
@@ -95,7 +95,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
             locationManager = activity?.getSystemService(LOCATION_SERVICE) as LocationManager
 
             try {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10.0f, this)
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 50000, 10.0f, this)
             } catch (ex: Exception) {
                 ex.printStackTrace()
                 Toast.makeText(requireContext(), "Error: ${ex.message}", Toast.LENGTH_SHORT).show()
@@ -103,10 +103,19 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
         }
 
         pointsMap.forEach { (buildingName, latLng) ->
-            mMap.addMarker(MarkerOptions().position(latLng).title(buildingName))
+            var marker = mMap.addMarker(MarkerOptions().position(latLng).title(buildingName))
+            //marker!!.showInfoWindow()
         }
 
         mMap.setOnMarkerClickListener { marker ->
+            // feature to redraw road
+            mMap.clear()
+            pointsMap.forEach { (buildingName, latLng) ->
+                var marker = mMap.addMarker(MarkerOptions().position(latLng).title(buildingName))
+                //marker!!.showInfoWindow()
+            }
+            mMap.addMarker(MarkerOptions().position(currentPosition!!.position).title("User's Location"))
+            //
 
             val buildingName = marker.title
 

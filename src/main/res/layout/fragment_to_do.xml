@@ -2,12 +2,42 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="750dp"
     tools:context=".ToDoFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"/>
+        android:layout_height="82dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextText"
+            android:layout_width="244dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Enter the task"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/addTaskButton"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/finishedTask"
+        android:layout_width="match_parent"
+        android:layout_height="342dp">
+
+        <FrameLayout
+            android:id="@+id/currentTask"
+            android:layout_width="match_parent"
+            android:layout_height="333dp">
+
+        </FrameLayout>
+    </FrameLayout>
 
 </FrameLayout>
