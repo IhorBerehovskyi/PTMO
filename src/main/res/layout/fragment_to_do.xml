@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="750dp"
+    android:layout_marginTop="15dp"
+    android:orientation="vertical"
     tools:context=".ToDoFragment">
 
+    <!-- User Input -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="82dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editTextText"
-            android:layout_width="244dp"
+            android:id="@+id/editText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
@@ -21,23 +26,65 @@
 
         <Button
             android:id="@+id/addTaskButton"
-            android:layout_width="25dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Button" />
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/finishedTask"
+    <!-- Current Task -->
+    <LinearLayout
+        android:id="@+id/currentTaskContainer"
         android:layout_width="match_parent"
-        android:layout_height="342dp">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#DCBEF8"
+        android:orientation="vertical"
+        android:radius="16dp">
 
-        <FrameLayout
-            android:id="@+id/currentTask"
+        <!-- Place your content for currentTask here -->
+
+        <TextView
+            android:id="@+id/currentTaskLabel"
             android:layout_width="match_parent"
-            android:layout_height="333dp">
+            android:layout_height="wrap_content"
+            android:text="Current tasks:"
+            android:textAlignment="center"
+            android:textColor="#FBFAFA"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-        </FrameLayout>
-    </FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/currentTasksList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-</FrameLayout>
+    </LinearLayout>
+
+    <!-- Finished Task -->
+    <LinearLayout
+        android:id="@+id/finishedTaskContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#E2CDFB"
+        android:orientation="vertical">
+
+        <!-- Place your content for finishedTask here -->
+
+        <TextView
+            android:id="@+id/finishedTaskLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Finished tasks:"
+            android:textAlignment="center"
+            android:textColor="#FBFAFA"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/FinishedTasksList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</LinearLayout>

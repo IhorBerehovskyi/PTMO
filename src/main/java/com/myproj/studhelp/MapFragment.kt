@@ -28,7 +28,7 @@ import com.maps.route.model.TravelMode
 
 class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
 
-    private lateinit var binding : FragmentMapBinding
+    private lateinit var binding: FragmentMapBinding
     private lateinit var locationManager: LocationManager
     private lateinit var mMap: GoogleMap
     private var currentPosition: Marker? = null
@@ -36,9 +36,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
 
 
     private var pointsMap: Map<String, LatLng> = mapOf(
-        "Main building" to LatLng( 49.83500097293507, 24.01447421201443),
-        "Building №1" to LatLng(49.83510061296115,  24.0105404673798),
-        "Building №2" to LatLng(49.835872633787446,  24.012640465005553),
+        "Main building" to LatLng(49.83500097293507, 24.01447421201443),
+        "Building №1" to LatLng(49.83510061296115, 24.0105404673798),
+        "Building №2" to LatLng(49.835872633787446, 24.012640465005553),
         "Building №3" to LatLng(49.836381218153456, 24.01379567668947),
         "Building №4" to LatLng(49.83661363414533, 24.011016512071123),
         "Building №5" to LatLng(49.83480318686737, 24.0081430641997),
@@ -75,8 +75,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?)
-        { super.onViewCreated(view, savedInstanceState) }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
 
     companion object {
         @JvmStatic
@@ -92,12 +93,21 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                1
+            )
         } else {
             locationManager = activity?.getSystemService(LOCATION_SERVICE) as LocationManager
 
             try {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 50000, 10.0f, this)
+                locationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER,
+                    50000,
+                    10.0f,
+                    this
+                )
             } catch (ex: Exception) {
                 ex.printStackTrace()
                 Toast.makeText(requireContext(), "Error: ${ex.message}", Toast.LENGTH_SHORT).show()
@@ -115,12 +125,16 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
                 mMap.addMarker(MarkerOptions().position(latLng).title(buildingName))
             }
 
-            mMap.addMarker(MarkerOptions().position(currentPosition!!.position).title("User's Location").icon(
-                BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+            mMap.addMarker(
+                MarkerOptions().position(currentPosition!!.position).title("User's Location").icon(
+                    BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
+                )
+            )
 
             val buildingName = marker.title
 
-            val building = mMap.addMarker(MarkerOptions().position(marker.position).title(marker.title))
+            val building =
+                mMap.addMarker(MarkerOptions().position(marker.position).title(marker.title))
             building!!.showInfoWindow()
 
             if (pointsMap.containsKey(buildingName)) {
@@ -137,9 +151,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
                             polygonWidth = 10,
                             travelMode = TravelMode.WALKING
                         )
-                    }
-                    catch (e: Exception){
-                        Toast.makeText(requireContext(), "Impossible to route", Toast.LENGTH_SHORT).show()
+                    } catch (e: Exception) {
+                        Toast.makeText(requireContext(), "Impossible to route", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
             }
@@ -155,11 +169,17 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
         val userLatLng = LatLng(latitude, longitude)
         currentPosition?.remove()
         val options = MarkerOptions().position(userLatLng).title("User's Location").icon(
-            BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+            BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
+        )
         currentPosition = mMap.addMarker(options)
 
-        if (!isInitialLocationUpdate){
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition!!.position, 15.0F));
+        if (!isInitialLocationUpdate) {
+            mMap.animateCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    currentPosition!!.position,
+                    15.0F
+                )
+            );
             isInitialLocationUpdate = !isInitialLocationUpdate
         }
     }
