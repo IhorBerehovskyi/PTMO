@@ -17,6 +17,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -32,6 +33,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
     private lateinit var mMap: GoogleMap
     private var currentPosition: Marker? = null
     private var isInitialLocationUpdate = false
+
 
     private var pointsMap: Map<String, LatLng> = mapOf(
         "Main building" to LatLng( 49.83500097293507, 24.01447421201443),
@@ -103,21 +105,23 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
         }
 
         pointsMap.forEach { (buildingName, latLng) ->
-            var marker = mMap.addMarker(MarkerOptions().position(latLng).title(buildingName))
-            //marker!!.showInfoWindow()
+            mMap.addMarker(MarkerOptions().position(latLng).title(buildingName))
         }
 
         mMap.setOnMarkerClickListener { marker ->
-            // feature to redraw road
+
             mMap.clear()
             pointsMap.forEach { (buildingName, latLng) ->
-                var marker = mMap.addMarker(MarkerOptions().position(latLng).title(buildingName))
-                //marker!!.showInfoWindow()
+                mMap.addMarker(MarkerOptions().position(latLng).title(buildingName))
             }
-            mMap.addMarker(MarkerOptions().position(currentPosition!!.position).title("User's Location"))
-            //
+
+            mMap.addMarker(MarkerOptions().position(currentPosition!!.position).title("User's Location").icon(
+                BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
 
             val buildingName = marker.title
+
+            val building = mMap.addMarker(MarkerOptions().position(marker.position).title(marker.title))
+            building!!.showInfoWindow()
 
             if (pointsMap.containsKey(buildingName)) {
                 val clickedBuildingLatLng = pointsMap[buildingName]
@@ -141,7 +145,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
             }
             true
         }
-
     }
 
     override fun onLocationChanged(location: Location) {
@@ -151,7 +154,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
 
         val userLatLng = LatLng(latitude, longitude)
         currentPosition?.remove()
-        var options = MarkerOptions().position(userLatLng).title("User's Location")
+        val options = MarkerOptions().position(userLatLng).title("User's Location").icon(
+            BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
         currentPosition = mMap.addMarker(options)
 
         if (!isInitialLocationUpdate){
@@ -159,6 +163,4 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
             isInitialLocationUpdate = !isInitialLocationUpdate
         }
     }
-
-
 }
