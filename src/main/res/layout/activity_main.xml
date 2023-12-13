@@ -9,54 +9,87 @@
         android:id="@+id/framePlaceholder"
         android:layout_width="match_parent"
         android:layout_height="750dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="360dp"
+        android:layout_marginBottom="-100dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.994"
+        app:srcCompat="@drawable/menu" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="360dp"
+        android:layout_marginBottom="-100dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomButtonsLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.982"
+        app:srcCompat="@drawable/menu" />
+
     <LinearLayout
         android:id="@+id/bottomButtonsLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_width="299dp"
+        android:layout_height="35dp"
         android:layout_gravity="center_horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="14dp"
         android:layout_marginEnd="14dp"
-        android:layout_marginBottom="14dp">
+        android:layout_marginBottom="14dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+        <ImageButton
             android:id="@+id/marksButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginEnd="8dp"
+            android:src="@drawable/student"
+            android:background="@color/white"
+            android:layout_weight="1"
             android:text="Marks" />
 
-        <Button
+        <ImageButton
             android:id="@+id/todoButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:src="@drawable/order"
+            android:background="@color/white"
             android:text="To-Do" />
 
-        <Button
+        <ImageButton
             android:id="@+id/mapButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:src="@drawable/location"
+            android:background="@color/white"
             android:text="Map" />
 
-        <Button
+        <ImageButton
             android:id="@+id/adminButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:src="@drawable/user"
+            android:background="@color/white"
             android:text="Admin" />
 
     </LinearLayout>

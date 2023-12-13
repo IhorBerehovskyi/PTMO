@@ -18,15 +18,6 @@ class AdminFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val screenHeight = resources.displayMetrics.heightPixels
-        val adminLayout = view.findViewById<FrameLayout>(R.id.adminLayout)
-
-        adminLayout.layoutParams.height = screenHeight / 2
-        adminLayout.requestLayout()
-
-
-
     }
 
     companion object {
