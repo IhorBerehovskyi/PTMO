@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         bindingClass.adminButton.setOnClickListener {
             if (currentFragment !is AdminRegFragment) {
-                replaceFragmentIfNeeded(AdminRegFragment.newInstance())
+                replaceFragmentIfNeeded(AdminLogFragment.newInstance())
             }
         }
     }
