@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "143608209879",
+    "firebase_url": "https://studhelp-5d25c-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "studhelp-5d25c",
+    "storage_bucket": "studhelp-5d25c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:143608209879:android:3f9ebe9b21095cf091eb92",
+        "android_client_info": {
+          "package_name": "com.myproj.studhelp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDV4pszdE6HPcluXqNM34_AkNZzcxvdw6E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
