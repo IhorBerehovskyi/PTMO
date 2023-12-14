@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/obvodka">
+
+    <LinearLayout
+
+
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/surnameTextView"
+            android:layout_width="125dp"
+            android:layout_height="69dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textColor="#4C237A"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="111dp"
+            android:layout_height="69dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textColor="#4C237A"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/marks"
+            android:layout_width="153dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#4C237A" />
+
+        <!-- Додайте інші TextView для інших полів студента -->
+
+    </LinearLayout>
+</LinearLayout>

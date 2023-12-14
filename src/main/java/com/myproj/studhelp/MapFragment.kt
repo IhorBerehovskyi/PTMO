@@ -159,6 +159,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
             }
             true
         }
+
     }
 
     override fun onLocationChanged(location: Location) {
@@ -179,7 +180,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
                     currentPosition!!.position,
                     15.0F
                 )
-            );
+            )
             isInitialLocationUpdate = !isInitialLocationUpdate
         }
     }
